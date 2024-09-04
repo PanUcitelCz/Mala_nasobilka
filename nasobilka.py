@@ -15,11 +15,58 @@ def vyhodnoceni(vysledek, porovnani):
         print("Ahh, zrovna jsi se spletl, příště to bude lepší")  # Pokud je špatně, vytiskne se povzbuzení.
     return odpoved  # Vrací, zda byla odpověď správná (True) nebo ne (False).
 
-x = random.randint(1, 10)  
-# Vygeneruje náhodné číslo od 1 do 10 a přiřadí ho k proměnné x.
+def spustit_hru():
+    # Inicializace počtu správných odpovědí a počtu kol.
+    spravne_odpovedi = 0
+    # Náhodně určí počet kol (od 3 do 10).
+    pocet_kol = random.randint(3, 10)
 
-y = random.randint(1, 10)  
-# Vygeneruje náhodné číslo od 1 do 10 a přiřadí ho k proměnné y.
+    # Smyčka pro zadaný počet kol.
+    for kolo in range(pocet_kol):
+        # Generujeme dvě náhodná čísla od 1 do 10.
+        x = random.randint(1, 10)
+        y = random.randint(1, 10)
 
-porovnani = input(f"{x} * {y} = ")  
-# Zeptá se uživatele na výsledek násobení dvou čísel x a y a uloží ho do proměnné porovnani.
+        # Zeptáme se uživatele na výsledek násobení dvou čísel.
+        porovnani = int(input(f"{x} * {y} = "))
+
+        # Vyhodnotíme odpověď.
+        if vyhodnoceni(nasobeni(x, y), porovnani):
+            spravne_odpovedi += 1  # Pokud je odpověď správná, přičteme bod.
+
+    # Po ukončení hry vypíšeme skóre.
+    print("\n---------------------------")
+    print(f"Hra skončila! Zde jsou vaše výsledky:")
+    print(f"Počet kol: {pocet_kol}")
+    print(f"Správně jste odpověděl {spravne_odpovedi} z {pocet_kol} otázek.")
+    
+    # Vypočítáme procentuální úspěšnost.
+    procentualni_uspesnost = (spravne_odpovedi / pocet_kol) * 100
+    print(f"Vaše úspěšnost je: {procentualni_uspesnost:.2f}%")
+    print("---------------------------\n")
+
+def privitani():
+    # Uvítací zpráva pro uživatele.
+    print("---------------------------")
+    print("Vítejte v matematické hře!")
+    print("Zde si procvičíte násobení náhodných čísel.")
+    print("Na konci hry se dozvíte své skóre a úspěšnost.")
+    print("---------------------------\n")
+
+def main():
+    # Přivítání uživatele na začátku programu.
+    privitani()
+    
+    while True:
+        spustit_hru()  # Spustíme hru.
+        
+        # Zeptáme se uživatele, zda chce hrát znovu.
+        znovu = input("Chcete hrát znovu? (ano/ne): ").lower()
+        
+        # Pokud uživatel zadá "ne", ukončíme program.
+        if znovu != "ano":
+            print("Děkujeme za hraní! Nashledanou.")
+            break
+
+# Spuštění hlavního programu.
+main()
